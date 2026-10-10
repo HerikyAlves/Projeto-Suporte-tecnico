@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111315">
+  <meta name="description" content="DeskFlow: gestão e acompanhamento de chamados de suporte.">
+  <title>DeskFlow | Gestão de chamados</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="#overview" class="sidebar-brand">
+        <span class="brand-mark">D</span>
+        <span>DeskFlow</span>
+      </a>
+
+      <p class="sidebar-section-label">WORKSPACE</p>
+
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <a href="#overview" class="nav-link active">
+          <span class="nav-icon">▦</span>
+          <span>Visão geral</span>
+        </a>
+        <a href="#tickets" class="nav-link">
+          <span class="nav-icon">☷</span>
+          <span>Chamados</span>
+        </a>
+        <a href="#new-ticket" class="nav-link">
+          <span class="nav-icon">＋</span>
+          <span>Novo chamado</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <span class="connection-indicator"></span>
+        <div>
+          <strong>DeskFlow Service Desk</strong>
+          <small>Ambiente local</small>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div>
+          <p class="topbar-context">Workspace <span>/</span> Suporte</p>
+          <h1>Central de atendimento</h1>
+        </div>
+        <span class="environment-label">PORTFÓLIO</span>
+      </header>
+
+      <main class="container">
+        <section class="welcome" id="overview">
+          <p class="eyebrow">VISÃO GERAL</p>
+          <h2>Gestão de chamados</h2>
+          <p>Acompanhe solicitações, prioridades e o andamento dos atendimentos.</p>
+        </section>
+
+        <section class="stats" aria-label="Resumo dos chamados">
+          <article class="stat-card">
+            <p>Total de chamados</p>
+            <strong id="total">0</strong>
+            <span class="stat-caption">Registros cadastrados</span>
+          </article>
+
+          <article class="stat-card">
+            <p>Em aberto</p>
+            <strong id="open">0</strong>
+            <span class="stat-caption">Pendentes de resolução</span>
+          </article>
+
+          <article class="stat-card">
+            <p>Concluídos</p>
+            <strong id="closed">0</strong>
+            <span class="stat-caption">Atendimentos finalizados</span>
+          </article>
+        </section>
+
+        <section class="panel" id="new-ticket">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">ATENDIMENTO</p>
+              <h3 id="form-heading">Novo chamado</h3>
+              <p class="muted" id="form-help">Registre uma nova solicitação de suporte.</p>
+            </div>
+            <span class="section-icon">＋</span>
+          </div>
+
+          <form id="ticket-form">
+            <div class="form-grid">
+              <div class="field field-full">
+                <label for="title">Título do chamado</label>
+                <input
+                  id="title"
+                  type="text"
+                  maxlength="120"
+                  placeholder="Ex.: Computador sem acesso à internet"
+                  required
+                >
+              </div>
+
+              <div class="field field-full">
+                <label for="description">Descrição</label>
+                <textarea
+                  id="description"
+                  rows="4"
+                  maxlength="2000"
+                  placeholder="Descreva o problema, os sintomas e as informações relevantes..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="field">
+                <label for="priority">Prioridade</label>
+                <select id="priority">
+                  <option value="Baixa">Baixa</option>
+                  <option value="Média" selected>Média</option>
+                  <option value="Alta">Alta</option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="submit-button" class="button button-primary">
+                  Criar chamado
+                </button>
+                <button type="button" id="cancel-edit" class="button button-secondary" hidden>
+                  Cancelar edição
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" id="tickets">
+          <div class="section-heading tickets-heading">
+            <div>
+              <p class="eyebrow">GERENCIAMENTO</p>
+              <h3>Chamados registrados</h3>
+              <p class="muted">Pesquise, filtre e gerencie as solicitações.</p>
+            </div>
+            <span id="visible-count" class="result-count">0 registros</span>
+          </div>
+
+          <div class="filters">
+            <div class="field search-field">
+              <label for="search">Pesquisar chamados</label>
+              <div class="search-wrap">
+                <span aria-hidden="true">⌕</span>
+                <input
+                  id="search"
+                  type="search"
+                  placeholder="Buscar por título ou descrição..."
+                >
+              </div>
+            </div>
+
+            <div class="filter-row">
+              <div class="field">
+                <label for="status-filter">Status</label>
+                <select id="status-filter">
+                  <option value="Todos">Todos os status</option>
+                  <option value="Aberto">Em aberto</option>
+                  <option value="Concluído">Concluídos</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="priority-filter">Prioridade</label>
+                <select id="priority-filter">
+                  <option value="Todas">Todas as prioridades</option>
+                  <option value="Baixa">Baixa</option>
+                  <option value="Média">Média</option>
+                  <option value="Alta">Alta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="ticket-list" class="ticket-list" aria-live="polite"></div>
+        </section>
+
+        <footer class="app-footer">
+          <span>DeskFlow</span>
+          <span>Sistema de gestão de chamados</span>
+          <span>Projeto de portfólio</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
