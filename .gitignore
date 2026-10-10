@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Arquivos locais do DeskFlow
+deskflow.db
+*.sqlite
+*.sqlite3
+
+# Configurações locais
+.env
+
+# Arquivos temporários do sistema
+.DS_Store
